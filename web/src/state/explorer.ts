@@ -72,9 +72,13 @@ export const explorerNavigationBunja = bunja(() => {
   const paneScopeId = bunja.use(ExplorerPaneScope);
   const store = bunja.use(JotaiStoreScope);
 
+  const initialNavigationState: ExplorerNavigationState = {
+    history: [],
+    location: { type: "root" },
+  };
   const navigationStateAtom = atomWithStorage<ExplorerNavigationState>(
     explorerNavigationStorageKey(machineId, paneScopeId),
-    { history: [], location: { type: "root" } },
+    initialNavigationState,
     undefined,
     { getOnInit: true },
   );
@@ -243,7 +247,6 @@ export const explorerRootsBunja = bunja(() => {
         store.set(rootsStateAtom, { phase: "idle", message: "Roots idle" });
         return;
       }
-
       let cancelled = false;
       let iterator: AsyncGenerator<RootsTableEvent> | undefined;
       stopCurrent = () => {
@@ -346,7 +349,6 @@ export const explorerDirectoryBunja = bunja(() => {
         });
         return;
       }
-
       let cancelled = false;
       let iterator: AsyncGenerator<DirectoryTableEvent> | undefined;
       stopCurrent = () => {

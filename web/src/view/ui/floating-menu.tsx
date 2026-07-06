@@ -8,26 +8,30 @@ import {
 import { className as joinClassName } from "../class-name.ts";
 
 const menuClassName = [
-  "grid gap-[2px] border border-[#d8dde7] bg-white",
-  "rounded-[4px] p-0",
-  "[box-shadow:0_18px_48px_rgb(32_36_45_/_24%)]",
+  "grid gap-[3px] border border-white/48 bg-[rgba(255,255,255,0.76)]",
+  "rounded-[11px] p-[5px] backdrop-blur-2xl",
+  "shadow-[0_26px_76px_rgba(18,25,38,0.22),0_7px_20px_rgba(18,25,38,0.1),inset_0_1px_0_rgba(255,255,255,0.86)]",
 ].join(" ");
-const fixedMenuClassName = "fixed";
-const absoluteMenuClassName = "absolute";
 const menuItemClassName = [
-  "inline-flex h-[2rem] min-h-[2rem] w-full appearance-none",
-  "items-center justify-start gap-[7px] rounded-0 border-0 bg-transparent",
-  "px-[8px] text-left text-[#20242d] [font:inherit]",
-  "cursor-pointer hover:bg-[#f2f6ff]",
+  "inline-flex h-[27px] min-h-[27px] w-full appearance-none",
+  "items-center justify-start gap-[8px] rounded-[7px] border border-transparent bg-transparent",
+  "px-[8px] text-left text-[12.5px] font-620 text-wgo-text-2 [font-family:inherit]",
+  "wgo-transition cursor-pointer hover:border-white/56 hover:bg-[rgba(52,70,96,0.08)] hover:text-wgo-text",
+  "active:bg-[rgba(52,70,96,0.13)]",
+  "focus-visible:border-white/70 focus-visible:bg-[rgba(52,70,96,0.1)] focus-visible:outline-0",
   "disabled:cursor-not-allowed disabled:opacity-48",
 ].join(" ");
-const dangerMenuItemClassName =
-  "text-[#b42318] hover:bg-[#fff2f0] hover:text-[#912018]";
+const dangerMenuItemClassName = [
+  "text-wgo-danger",
+  "hover:border-[rgba(220,38,38,0.16)] hover:bg-wgo-danger-soft hover:text-wgo-danger",
+  "focus-visible:border-[rgba(220,38,38,0.22)] focus-visible:bg-wgo-danger-soft",
+  "[&_svg]:text-wgo-danger",
+].join(" ");
 const viewportMargin = 8;
 const menuBorderSize = 2;
-const menuPaddingBlock = 0;
+const menuPaddingBlock = 6;
 const menuItemGap = 2;
-export const floatingMenuItemHeightPx = 24;
+export const floatingMenuItemHeightPx = 27;
 
 export interface FloatingMenuPosition {
   left: number;
@@ -72,12 +76,11 @@ export function FloatingMenu(
     <div
       ref={menuRef}
       className={joinClassName(
-        strategy === "fixed" ? fixedMenuClassName : absoluteMenuClassName,
         menuClassName,
         className,
       )}
       role={role}
-      style={{ ...position, ...style }}
+      style={{ position: strategy, ...position, ...style }}
       onMouseDown={(event) => {
         event.stopPropagation();
         onMouseDown?.(event);

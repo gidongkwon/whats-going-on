@@ -17,21 +17,21 @@ interface BreadcrumbProps {
 
 const breadcrumbClassName = [
   "flex h-[2rem] min-h-[2rem] min-w-0 items-center gap-[0.5rem] overflow-hidden",
-  "[&_svg]:flex-[0_0_auto] [&_svg]:text-[#98a2b3]",
+  "[&_svg]:flex-[0_0_auto] [&_svg]:text-wgo-muted",
   "[&_button]:inline-flex [&_button]:appearance-none [&_button]:cursor-pointer",
   "[&_button]:items-center [&_button]:[font-family:inherit]",
   "[&_button]:h-[2rem] [&_button]:min-w-0 [&_button]:max-w-[180px]",
   "[&_button]:overflow-hidden [&_button]:text-ellipsis",
-  "[&_button]:whitespace-nowrap [&_button]:rounded-[0.5rem]",
+  "[&_button]:whitespace-nowrap [&_button]:rounded-wgo-md",
   "[&_button]:border-transparent [&_button]:bg-transparent",
-  "[&_button]:px-[0.5rem] [&_button]:font-750",
-  "[&_button]:text-[#344054] [&_button:hover]:bg-[#eef3fb]",
+  "[&_button]:px-[0.5rem] [&_button]:font-600",
+  "[&_button]:text-wgo-text-2 [&_button:hover]:bg-wgo-hover",
   "[&_span]:inline-flex [&_span]:h-[2rem] [&_span]:min-w-0",
   "[&_span]:max-w-[240px] [&_span]:items-center [&_span]:overflow-hidden",
   "[&_span]:text-ellipsis [&_span]:whitespace-nowrap",
-  "[&_span]:px-[0.5rem] [&_span]:font-750 [&_span]:text-[#20242d]",
+  "[&_span]:px-[0.5rem] [&_span]:font-600 [&_span]:text-wgo-text",
 ].join(" ");
-const breadcrumbMutedClassName = "text-[#667085]";
+const breadcrumbMutedClassName = "text-wgo-text-3";
 
 export function Breadcrumb({ ariaLabel, className, items }: BreadcrumbProps) {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus } from "lucide-react";
+import { Monitor, Plus } from "lucide-react";
 import type { Machine } from "../../state/machines.ts";
 import { className } from "../class-name.ts";
 
@@ -11,7 +11,6 @@ export interface RailTooltip {
 
 interface MachineRailProps {
   machines: Machine[];
-  projectLogoUrl: string;
   railTooltip?: RailTooltip;
   selectedId?: string;
   onAddMachine: () => void;
@@ -25,54 +24,50 @@ interface MachineRailProps {
 }
 
 const machineRailClassName = [
-  "[grid-column:1] [grid-row:2] grid [grid-template-rows:48px_minmax(0,1fr)_auto]",
-  "justify-items-center gap-0 min-h-0 overflow-hidden bg-[#242832] p-0",
-].join(" ");
-const railBrandClassName = [
-  "flex items-center justify-center w-[48px] h-[48px] overflow-visible",
-  "[&_img]:block [&_img]:w-[48px] [&_img]:h-[48px] [&_img]:object-contain",
+  "[grid-column:1] [grid-row:2] grid [grid-template-rows:minmax(0,1fr)_auto]",
+  "justify-items-center gap-0 min-h-0 overflow-hidden px-0 pb-0 pt-[8px]",
+  "border-r border-r-white/24 bg-[rgba(247,247,248,0.46)] backdrop-blur-2xl",
+  "shadow-[inset_1px_0_0_rgba(255,255,255,0.48),inset_-1px_0_0_rgba(18,25,38,0.05)]",
+  "max-[680px]:hidden",
 ].join(" ");
 const railListClassName = [
   "grid content-start justify-items-center gap-0",
   "w-full min-h-0 overflow-auto",
 ].join(" ");
-const railItemFrameClassName = "grid h-[48px] w-full place-items-center";
+const railItemFrameClassName = "grid h-[46px] w-full place-items-center";
 const railMachineClassName = [
   "relative inline-flex appearance-none items-center justify-center w-[36px] min-w-[36px] h-[36px] min-h-[36px]",
-  "cursor-pointer border-0 rounded-full bg-[#343946] text-[#d8dde7] p-0",
+  "cursor-pointer rounded-[12px] wgo-material-dock-control p-0",
   "[font-family:inherit]",
-  "[transition:border-radius_140ms_ease,background_140ms_ease,color_140ms_ease]",
-  "hover:rounded-[13px] hover:bg-[#343946] hover:text-[#d8dde7]",
-  "[&.active]:rounded-[13px] [&.active]:bg-[#4f8cff] [&.active]:text-white",
-  "[&:hover_.rail-indicator]:h-[18px]",
-  "[&.active_.rail-indicator]:h-[28px]",
+  "wgo-transition transition-[border-radius,background,color,border-color,box-shadow]",
+  "[&.active]:border-white/78 [&.active]:bg-white/76 [&.active]:text-wgo-text",
+  "[&.active]:[box-shadow:0_10px_28px_rgba(63,83,115,0.18),inset_0_1px_0_rgba(255,255,255,0.88)]",
+  "[&.active_.machine-state-dot]:bg-[rgba(47,109,246,0.82)]",
 ].join(" ");
-const railIndicatorClassName = [
-  "rail-indicator absolute left-[-6px] w-[3px] h-0 rounded-[0_999px_999px_0]",
-  "bg-white [transition:height_140ms_ease]",
+const machineAvatarClassName = "grid h-full w-full place-items-center";
+const machineStateDotClassName = [
+  "machine-state-dot absolute bottom-[5px] right-[5px] h-[5px] w-[5px] rounded-full",
+  "bg-[rgba(77,96,126,0.58)]",
 ].join(" ");
-const machineAvatarClassName = "text-[12px] font-750 tracking-[0]";
 const railActionClassName = [
-  "relative inline-flex appearance-none items-center justify-center w-[36px] min-w-[36px] h-[36px] min-h-[36px]",
-  "cursor-pointer border-0 rounded-full bg-[#343946] text-[#38b86f] p-0",
+  "relative inline-flex appearance-none items-center justify-center w-[34px] min-w-[34px] h-[34px] min-h-[34px]",
+  "cursor-pointer rounded-[11px] wgo-material-dock-control p-0 text-wgo-text-3",
   "[font-family:inherit]",
-  "[transition:border-radius_140ms_ease,background_140ms_ease,color_140ms_ease]",
-  "hover:rounded-[13px] hover:bg-[#4f8cff] hover:text-white",
+  "wgo-transition transition-[border-radius,background,color,border-color]",
 ].join(" ");
-const railActionFrameClassName = "grid h-[48px] w-full place-items-center";
+const railActionFrameClassName = "grid h-[46px] w-full place-items-center";
 const railTooltipClassName = [
-  "fixed z-[40] translate-y-[-50%] rounded-[6px] bg-[#101828] text-white",
-  "[box-shadow:0_12px_32px_rgb(16_24_40_/_24%)]",
-  "px-[9px] py-[6px] text-[12px] font-650 leading-none whitespace-nowrap pointer-events-none",
+  "fixed z-[40] translate-y-[-50%] rounded-wgo-md bg-[rgba(31,38,50,0.86)] text-white backdrop-blur-xl",
+  "shadow-[0_12px_34px_rgba(18,25,38,0.22)]",
+  "px-[9px] py-[6px] text-[13px] font-650 leading-none whitespace-nowrap pointer-events-none",
   "before:content-[''] before:absolute before:top-1/2 before:left-[-5px]",
-  "before:w-[10px] before:h-[10px] before:bg-[#101828]",
+  "before:w-[10px] before:h-[10px] before:bg-[rgba(31,38,50,0.86)]",
   "before:[transform:translateY(-50%)_rotate(45deg)]",
 ].join(" ");
 
 export function MachineRail(
   {
     machines,
-    projectLogoUrl,
     railTooltip,
     selectedId,
     onAddMachine,
@@ -85,10 +80,6 @@ export function MachineRail(
   return (
     <>
       <aside className={machineRailClassName} aria-label="Machine switcher">
-        <div className={railBrandClassName} title="wgo">
-          <img src={projectLogoUrl} alt="wgo" />
-        </div>
-
         <nav className={railListClassName} aria-label="Machines">
           {machines.map((machine) => (
             <div key={machine.id} className={railItemFrameClassName}>
@@ -110,10 +101,10 @@ export function MachineRail(
                   onContextMenu(event, machine)}
                 aria-label={machine.name}
               >
-                <span className={railIndicatorClassName} />
-                <span className={machineAvatarClassName}>
-                  {machineInitials(machine.name)}
+                <span className={machineAvatarClassName} aria-hidden="true">
+                  <Monitor size={15} />
                 </span>
+                <span className={machineStateDotClassName} />
               </button>
             </div>
           ))}
@@ -145,15 +136,4 @@ export function MachineRail(
         : null}
     </>
   );
-}
-
-function machineInitials(name: string): string {
-  const letters = name
-    .split(/[\s._-]+/)
-    .map((part) => part.trim()[0])
-    .filter(Boolean)
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-  return letters || "PC";
 }

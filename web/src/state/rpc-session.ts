@@ -197,7 +197,8 @@ export const rpcSessionBunja = bunja(() => {
 
   function instantiateController(): RpcSessionController | undefined {
     const machineId = machineState.machineId;
-    if (!machineId || !store.get(machineState.machineAtom)) {
+    const machine = store.get(machineState.machineAtom);
+    if (!machineId || !machine) {
       return undefined;
     }
     let rpcController: RpcSessionController;

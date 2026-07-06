@@ -7,7 +7,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { JotaiStoreScope } from "unsaturated/store";
 
-const machinePanelMinWidth = 212;
+const machinePanelMinWidth = 196;
 const machinePanelMaxWidth = 420;
 const machinePanelTransitionMs = 180;
 const minimumWorkbenchWidth = 360;
@@ -21,7 +21,7 @@ export const layoutBunja = bunja(() => {
   const store = bunja.use(JotaiStoreScope);
   const storedMachinePanelWidthAtom = atomWithStorage(
     machinePanelWidthStorageKey,
-    264,
+    232,
   );
   const machinePanelWidthAtom = atom(
     (get) => clampMachinePanelWidth(get(storedMachinePanelWidthAtom)),
@@ -33,7 +33,7 @@ export const layoutBunja = bunja(() => {
   );
   const machinePanelCollapsedAtom = atomWithStorage(
     machinePanelCollapsedStorageKey,
-    false,
+    true,
   );
   const machinePanelTransitioningAtom = atom(false);
   let machinePanelTransitionTimeout:

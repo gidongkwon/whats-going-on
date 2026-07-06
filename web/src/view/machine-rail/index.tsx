@@ -14,11 +14,6 @@ import type { MachineMenuState } from "../../state/types.ts";
 import { MachineContextMenu } from "./machine-context-menu.tsx";
 import { MachineRail } from "./machine-rail.tsx";
 
-const projectLogoUrl = new URL(
-  "../../assets/wgo.svg",
-  import.meta.url,
-).href;
-
 export function MachineRailRegion() {
   const machineStore = useBunja(machineStoreBunja);
   const machineMenuState = useBunja(machineMenuBunja);
@@ -86,7 +81,6 @@ export function MachineRailRegion() {
     <>
       <MachineRail
         machines={machines}
-        projectLogoUrl={projectLogoUrl}
         railTooltip={railTooltip}
         selectedId={selectedId}
         onAddMachine={openAddMachineModal}

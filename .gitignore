@@ -2,8 +2,11 @@ target/
 node_modules/
 dist/
 tmp/
+output/
+.playwright-cli/
 .vite/
 .wix/
+.DS_Store
 *.log
 *.pem
 *.pfx

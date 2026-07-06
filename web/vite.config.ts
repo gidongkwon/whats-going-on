@@ -16,5 +16,6 @@ export default defineConfig({
   ],
   server: {
     port: 5173,
+    allowedHosts: ["macstudio.tail4778bf.ts.net"]
   },
 });
